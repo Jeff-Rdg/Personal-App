@@ -55,7 +55,7 @@ func (i *Input) validate() []httpResponse.Cause {
 		causes = append(causes, cause)
 	}
 
-	if !IsvalidEmail(i.Email) {
+	if !isValidEmail(i.Email) {
 		cause := httpResponse.Cause{
 			Field:   "email",
 			Message: "value informed is invalid",
@@ -93,7 +93,7 @@ func (i *Input) validate() []httpResponse.Cause {
 	return nil
 }
 
-func IsvalidEmail(email string) bool {
+func isValidEmail(email string) bool {
 	_, err := mail.ParseAddress(email)
 	return err == nil
 }
