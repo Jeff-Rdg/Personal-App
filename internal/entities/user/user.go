@@ -8,6 +8,11 @@ import (
 	"personal-trainer-api/internal/httpResponse"
 )
 
+var (
+	RequiredErr = "value is required"
+	InvalidErr  = "value informed is invalid"
+)
+
 type User struct {
 	gorm.Model
 	Name     string     `json:"name" gorm:"not_null"`
@@ -42,7 +47,7 @@ func (i *Input) validate() []httpResponse.Cause {
 	if i.Name == "" {
 		cause := httpResponse.Cause{
 			Field:   "name",
-			Message: "name is required",
+			Message: RequiredErr,
 		}
 		causes = append(causes, cause)
 	}
@@ -50,7 +55,7 @@ func (i *Input) validate() []httpResponse.Cause {
 	if i.Email == "" {
 		cause := httpResponse.Cause{
 			Field:   "email",
-			Message: "email is required",
+			Message: RequiredErr,
 		}
 		causes = append(causes, cause)
 	}
@@ -58,7 +63,7 @@ func (i *Input) validate() []httpResponse.Cause {
 	if !isValidEmail(i.Email) {
 		cause := httpResponse.Cause{
 			Field:   "email",
-			Message: "value informed is invalid",
+			Message: InvalidErr,
 		}
 		causes = append(causes, cause)
 	}
@@ -66,7 +71,7 @@ func (i *Input) validate() []httpResponse.Cause {
 	if i.Password == "" {
 		cause := httpResponse.Cause{
 			Field:   "password",
-			Message: "password is required",
+			Message: RequiredErr,
 		}
 		causes = append(causes, cause)
 	}
@@ -74,7 +79,7 @@ func (i *Input) validate() []httpResponse.Cause {
 	if i.Role == "" {
 		cause := httpResponse.Cause{
 			Field:   "role",
-			Message: "role is required",
+			Message: RequiredErr,
 		}
 		causes = append(causes, cause)
 	}
@@ -82,7 +87,7 @@ func (i *Input) validate() []httpResponse.Cause {
 	if !enums.IsValidRole(i.Role) {
 		cause := httpResponse.Cause{
 			Field:   "role",
-			Message: "value informed is invalid",
+			Message: InvalidErr,
 		}
 		causes = append(causes, cause)
 	}
